@@ -14,7 +14,7 @@
   "layers": [
     {
       "definition": "tile",
-      "name": "tiles_layer",
+      "name": "layer_id_1D",
       "gridSize": {"x": 16, "y": 16},
       "exportID": "48419123",
       "exportMode": 0,
@@ -23,10 +23,19 @@
     },
     {
       "definition": "tile",
-      "name": "some_layer",
+      "name": "layer_2D",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "49468896",
       "exportMode": 0,
+      "arrayMode": 1,
+      "defaultTileset": "front"
+    },
+    {
+      "definition": "tile",
+      "name": "layer_coords",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "50004239",
+      "exportMode": 1,
       "arrayMode": 0,
       "defaultTileset": "front"
     }

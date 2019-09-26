@@ -3,15 +3,16 @@ package ogmo;
 class Project {
 	var json : Dynamic;
 	public var name(get,never) : String; inline function get_name() return json.name;
-	public var tiles : Array<{ label:String, path:String, t:h2d.Tile }> = [];
+	public var tilesets : Map<String, Tileset> = new Map();
+	public var levels : Array<Level> = [];
 
 	public function new(project:hxd.res.Resource) {
 		var raw = project.entry.getText();
 		json = haxe.Json.parse(raw);
 
 		// Init tilesets
-		for( tileset in cast(json.tilesets, Array<Dynamic>) ) {
-			var parts = tileset.image.split(",");
+		for( jsonTileset in cast(json.tilesets, Array<Dynamic>) ) {
+			var parts = jsonTileset.image.split(",");
 
 			var r = ( ~/data:[a-z]+\/([a-z0-9]+)/gi ); // extract image format
 			r.match( parts[0] );
@@ -35,14 +36,24 @@ class Project {
 					var pixels = hxd.Pixels.alloc(wid, hei, BGRA);
 					format.png.Tools.extract32(data, pixels.bytes);
 
-					tiles.push({
-						label : tileset.label,
-						path : tileset.path,
-						t : h2d.Tile.fromPixels(pixels),
-					});
+					var t = new Tileset(jsonTileset.label, h2d.Tile.fromPixels(pixels));
+					t.path = jsonTileset.path;
+					tilesets.set(t.label, t);
 
 				case _ : throw "Unsupported tileset image format: "+imageType;
 			}
+		}
+
+		// Init levels
+		var basePath = "res/"+project.entry.directory; // HACK: need resource full path here
+		var paths : Array<String> = cast json.levelPaths;
+		for(path in paths) {
+			var path = basePath+"/"+path;
+			for(f in sys.FileSystem.readDirectory(path))
+				if( f.indexOf(".json")>=0 ) {
+					var raw = sys.io.File.read( path+"/"+f, false ).readAll().toString();
+					levels.push( new Level(this, haxe.Json.parse(raw)) );
+				}
 		}
 	}
 }
