@@ -23,7 +23,7 @@
     },
     {
       "definition": "tile",
-      "name": "test",
+      "name": "some_layer",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "49468896",
       "exportMode": 0,
