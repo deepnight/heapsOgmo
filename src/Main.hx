@@ -48,6 +48,6 @@ class Main extends dn.Process {
 	}
 
 	public function start() {
-		var p = new ogmo.OgmoProject(hxd.Res.map.project);
+		var p = new ogmo.Project(hxd.Res.map.project);
 	}
 }

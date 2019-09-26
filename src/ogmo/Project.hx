@@ -1,6 +1,6 @@
 package ogmo;
 
-class OgmoProject {
+class Project {
 	var json : Dynamic;
 	public var name(get,never) : String; inline function get_name() return json.name;
 	public var tiles : Array<{ label:String, path:String, t:h2d.Tile }> = [];
