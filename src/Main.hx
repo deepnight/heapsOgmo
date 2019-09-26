@@ -27,7 +27,9 @@ class Main extends dn.Process {
 
 		// Console
 		var font = hxd.Res.barlow_condensed_medium_regular_11.toFont();
-		new h2d.Console(font, s);
+		var c = new h2d.Console(font, s);
+		h2d.Console.HIDE_LOG_TIMEOUT = 99999;
+		dn.Lib.redirectTracesToH2dConsole(c);
 
 		// Game controller
 		controller = new dn.heaps.Controller(s);
@@ -46,5 +48,6 @@ class Main extends dn.Process {
 	}
 
 	public function start() {
+		var p = new ogmo.OgmoProject(hxd.Res.map.project);
 	}
 }
