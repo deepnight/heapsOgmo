@@ -8,29 +8,40 @@ class OgmoProject {
 	public function new(project:hxd.res.Resource) {
 		var raw = project.entry.getText();
 		json = haxe.Json.parse(raw);
-		trace(name);
-		// var tilesets : Array<Dynamic> = cast json.tile
-		for( t in cast(json.tilesets, Array<Dynamic>) ) {
-			var parts = t.image.split(",");
 
-			// Image format
-			var r = ( ~/data:[a-z]+\/([a-z0-9]+)/gi );
+		// Init tilesets
+		for( tileset in cast(json.tilesets, Array<Dynamic>) ) {
+			var parts = tileset.image.split(",");
+
+			var r = ( ~/data:[a-z]+\/([a-z0-9]+)/gi ); // extract image format
 			r.match( parts[0] );
-			var format = r.matched(1);
-			trace(format);
-			trace(t.path+" is "+format);
-			switch( format ) {
+			var imageType = r.matched(1);
+			switch( imageType ) {
 				case "png" :
 					var bytes = haxe.crypto.Base64.decode(parts[1]);
-					// var bytes = haxe.io.Bytes.ofString(t.parts[1]);
-					var input = new haxe.io.BytesInput(bytes);
-					var reader = new format.png.Reader(input);
-					// var i = new hxd.res.Image()
-					reader.read();
-					// format.png.Tools
-					// var tex = new h3d.mat.Texture()
+					var reader = new format.png.Reader( new haxe.io.BytesInput(bytes) );
+					var data = reader.read();
+					var wid = 0;
+					var hei = 0;
+					for(e in data)
+						switch e {
+							case CHeader(h):
+								wid = h.width;
+								hei = h.height;
+							case _:
+						}
+					if( wid==0 || hei==0 ) throw "Missing width or height";
 
-				case _ : throw "Unsupported tileset image format: "+format;
+					var pixels = hxd.Pixels.alloc(wid, hei, BGRA);
+					format.png.Tools.extract32(data, pixels.bytes);
+
+					tiles.push({
+						label : tileset.label,
+						path : tileset.path,
+						t : h2d.Tile.fromPixels(pixels),
+					});
+
+				case _ : throw "Unsupported tileset image format: "+imageType;
 			}
 		}
 	}

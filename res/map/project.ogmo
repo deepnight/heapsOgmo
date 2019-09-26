@@ -14,12 +14,21 @@
   "layers": [
     {
       "definition": "tile",
-      "name": "tiles",
+      "name": "tiles_layer",
       "gridSize": {"x": 16, "y": 16},
       "exportID": "48419123",
       "exportMode": 0,
       "arrayMode": 0,
-      "defaultTileset": "New Tileset"
+      "defaultTileset": "front"
+    },
+    {
+      "definition": "tile",
+      "name": "test",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "49468896",
+      "exportMode": 0,
+      "arrayMode": 0,
+      "defaultTileset": "front"
     }
   ],
   "entities": [],
