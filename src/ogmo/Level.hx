@@ -3,7 +3,7 @@ package ogmo;
 @:allow(ogmo.Layer)
 class Level {
 	var project : Project;
-	var layers : Array<Layer> = [];
+	public var layers : Array<Layer> = [];
 
 	public var pxWid : Int;
 	public var pxHei : Int;

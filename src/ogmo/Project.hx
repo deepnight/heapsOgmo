@@ -36,8 +36,7 @@ class Project {
 					var pixels = hxd.Pixels.alloc(wid, hei, BGRA);
 					format.png.Tools.extract32(data, pixels.bytes);
 
-					var t = new Tileset(jsonTileset.label, h2d.Tile.fromPixels(pixels));
-					t.path = jsonTileset.path;
+					var t = new Tileset(h2d.Tile.fromPixels(pixels), jsonTileset);
 					tilesets.set(t.label, t);
 
 				case _ : throw "Unsupported tileset image format: "+imageType;

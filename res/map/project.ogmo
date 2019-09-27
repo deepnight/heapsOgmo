@@ -14,7 +14,7 @@
   "layers": [
     {
       "definition": "tile",
-      "name": "layer_id_1D",
+      "name": "layer_ids_1D",
       "gridSize": {"x": 16, "y": 16},
       "exportID": "48419123",
       "exportMode": 0,
@@ -23,7 +23,7 @@
     },
     {
       "definition": "tile",
-      "name": "layer_2D",
+      "name": "layer_ids_2D",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "49468896",
       "exportMode": 0,
@@ -32,11 +32,20 @@
     },
     {
       "definition": "tile",
-      "name": "layer_coords",
+      "name": "layer_coords_1d",
       "gridSize": {"x": 8, "y": 8},
       "exportID": "50004239",
       "exportMode": 1,
       "arrayMode": 0,
+      "defaultTileset": "front"
+    },
+    {
+      "definition": "tile",
+      "name": "layer_coords_2d",
+      "gridSize": {"x": 8, "y": 8},
+      "exportID": "57187703",
+      "exportMode": 1,
+      "arrayMode": 1,
       "defaultTileset": "front"
     }
   ],
