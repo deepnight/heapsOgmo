@@ -60,7 +60,7 @@ class Entity {
 		return has(v) && !Math.isNaN(out) && Math.isFinite(out) ? out : def;
 	}
 
-	public function getColor(v:String, ?def=0x0) {
+	public inline function getColor(v:String, ?def=0x0) {
 		if( !has(v) )
 			return def;
 		var out = dn.Color.hexToInt( get(v).substr(0,7) );
