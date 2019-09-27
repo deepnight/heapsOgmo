@@ -74,9 +74,7 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "values": [
-        {"name": "someFlag", "definition": "Boolean", "defaults": false}
-      ]
+      "values": []
     },
     {
       "exportID": "59747987",

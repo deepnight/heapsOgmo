@@ -35,10 +35,9 @@ class Entity {
 				projectSettingsJson = e;
 				break;
 			}
-
-		if( name=="mob")
-			trace(name+" "+cx+","+cy+" life="+getInt("life")+" type="+getEnum("type",Mob));
 	}
+
+	public function toString() return '$name @ $cx,$cy($x,$y) ; values=$values';
 
 	public inline function has(v:String) return Reflect.hasField(values,v);
 	public inline function get(v:String) return Reflect.field(values,v);

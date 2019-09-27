@@ -733,8 +733,7 @@
           "x": 48,
           "y": 144,
           "originX": 0,
-          "originY": 0,
-          "values": {"someFlag": "false"}
+          "originY": 0
         },
         {
           "name": "mob",
