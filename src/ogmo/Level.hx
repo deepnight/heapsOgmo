@@ -12,7 +12,6 @@ class Level {
 
 	public function new(p:Project, json:Dynamic) {
 		project = p;
-		trace(json);
 		pxWid = json.width;
 		pxHei = json.height;
 		offX = json.offsetX;
@@ -20,5 +19,6 @@ class Level {
 		var jsonLayers : Array<Dynamic> = cast json.layers;
 		for(l in jsonLayers)
 			layers.push( new Layer(this, l) );
+		layers.reverse();
 	}
 }

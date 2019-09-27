@@ -50,12 +50,10 @@ class Main extends dn.Process {
 	public function start() {
 		var p = new ogmo.Project(hxd.Res.map.project);
 
-		var tg = p.levels[0].layers[1].render();
-		root.addChild(tg);
-		tg.scale(3);
-
-		var tg = p.levels[0].layers[0].render();
-		root.addChild(tg);
-		tg.scale(3);
+		for( l in p.levels[0].layers) {
+			var tg = l.render();
+			root.addChild(tg);
+			tg.scale(3);
+		}
 	}
 }

@@ -41,6 +41,27 @@ class Layer {
 			for(tid in line)
 				tileIds.set(idx++, tid);
 		}
+		else if( json.dataCoords!=null ) {
+			// Coords in 1D array
+			var a : Array<Array<Int>> = cast json.dataCoords;
+			var idx = 0;
+			for(c in a) {
+				if( c.length==2 )
+					tileIds.set(idx, tileset.coordId(c[0], c[1]));
+				idx++;
+			}
+		}
+		else if( json.dataCoords2D!=null ) {
+			// Coords in 2D array
+			var a : Array<Array<Array<Int>>> = cast json.dataCoords2D;
+			var idx = 0;
+			for(line in a)
+			for(c in line) {
+				if( c.length==2 )
+					tileIds.set(idx, tileset.coordId(c[0], c[1]));
+				idx++;
+			}
+		}
 		else
 			trace("unsupported level format");
 	}
@@ -49,13 +70,11 @@ class Layer {
 	public inline function coordId(cx,cy) return isValid(cx,cy) ? cx + cy*cWid : 0;
 
 	public inline function getTileId(cx,cy) {
-		return tileIds.get( coordId(cx,cy) );
+		return !tileIds.exists(coordId(cx,cy)) ? -1 : tileIds.get( coordId(cx,cy) );
 	}
 
 	public function render() {
 		var tg = new h2d.TileGroup(tile);
-		trace('level=$cWid x $cHei grid=$gridWid x $gridHei');
-		trace(getTileId(0,0)+" "+getTileId(0,1));
 
 		for(cy in 0...cHei)
 		for(cx in 0...cWid) {
