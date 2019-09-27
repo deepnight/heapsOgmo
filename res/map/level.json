@@ -705,6 +705,48 @@
       ],
       "exportMode": 0,
       "arrayMode": 0
+    },
+    {
+      "name": "entities",
+      "_eid": "59749773",
+      "offsetX": 0,
+      "offsetY": 0,
+      "gridCellWidth": 16,
+      "gridCellHeight": 16,
+      "gridCellsX": 21,
+      "gridCellsY": 17,
+      "entities": [
+        {
+          "name": "mob",
+          "id": 2,
+          "_eid": "59747987",
+          "x": 240,
+          "y": 144,
+          "originX": 0,
+          "originY": 0,
+          "values": {"life": "1", "type": "Melee"}
+        },
+        {
+          "name": "hero",
+          "id": 3,
+          "_eid": "59741124",
+          "x": 48,
+          "y": 144,
+          "originX": 0,
+          "originY": 0,
+          "values": {"someFlag": "false"}
+        },
+        {
+          "name": "mob",
+          "id": 5,
+          "_eid": "59747987",
+          "x": 176,
+          "y": 48,
+          "originX": 0,
+          "originY": 0,
+          "values": {"life": "0", "type": "Distance"}
+        }
+      ]
     }
   ]
 }

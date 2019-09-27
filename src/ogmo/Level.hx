@@ -1,6 +1,7 @@
 package ogmo;
 
 @:allow(ogmo.Layer)
+@:allow(ogmo.Entity)
 class Level {
 	var project : Project;
 	public var layers : Array<Layer> = [];

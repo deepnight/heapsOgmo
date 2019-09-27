@@ -1,5 +1,6 @@
 package ogmo;
 
+@:allow(ogmo.Entity)
 class Project {
 	var json : Dynamic;
 	public var name(get,never) : String; inline function get_name() return json.name;
