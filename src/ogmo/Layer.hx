@@ -86,6 +86,7 @@ class Layer {
 				tileset.getTile( getTileId(cx,cy) )
 			);
 		}
+
 		return tg;
 	}
 }
