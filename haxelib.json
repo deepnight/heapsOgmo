@@ -1,0 +1,12 @@
+{
+  "name": "heapsOgmo",
+  "url" : "https://github.com/deepnight/heapsOgmo",
+  "license": "Apache",
+  "tags": ["Heaps","Hashlink","Ogmo","import"],
+  "description": "Import Ogmo3 generated maps to Heaps based projects",
+  "version": "0.0.1",
+  "classPath": "src/",
+  "releasenote": "Initial build",
+  "contributors": ["sbenard"],
+  "dependencies": {}
+}
