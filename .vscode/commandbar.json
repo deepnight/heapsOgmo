@@ -21,26 +21,9 @@
 			"priority": -11
 		},
 		{
-			"text": "☕ Build JS",
-			"color": "yellow",
-			"commandType":"palette",
-			"command": "workbench.action.tasks.runTask|JS release",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -20
-		},
-		{
-			"text": "Run JS",
-			"color": "yellow",
-			"command": "start js.html",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -21
-		},
-		{
 			"text": "📦 Redist",
 			"color": "lightgreen",
-			"command": "haxelib run redistHelper hl.dx.hxml hl.sdl.hxml js.hxml swf.hxml -o redist.$ -P MyGame",
+			"command": "haxelib run redistHelper hl.dx.hxml -o redist.$ -P HeapsOgmo",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -50
