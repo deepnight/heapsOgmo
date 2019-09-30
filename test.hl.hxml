@@ -8,6 +8,6 @@
 
 -D resourcesPath=test/res
 -D windowSize=1280x800
--hl bin/client.hl
+-hl test/bin/client.hl
 -lib hldx
 -debug
