@@ -19,6 +19,14 @@
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -11
-		}
+		},
+        {
+			"text": "➠ Submit to haxelib",
+			"color": "yellow",
+			"command": "start haxelib submit .",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -99
+		 }
 	]
 }
