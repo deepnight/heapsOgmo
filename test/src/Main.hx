@@ -29,7 +29,7 @@ class Main extends dn.Process {
 		var font = hxd.Res.barlow_condensed_medium_regular_11.toFont();
 		var c = new h2d.Console(font, s);
 		h2d.Console.HIDE_LOG_TIMEOUT = 99999;
-		dn.Lib.redirectTracesToH2dConsole(c);
+		// dn.Lib.redirectTracesToH2dConsole(c);
 
 		// Game controller
 		controller = new dn.heaps.Controller(s);
@@ -50,8 +50,9 @@ class Main extends dn.Process {
 	public function start() {
 		var p = new ogmo.Project(hxd.Res.map.project);
 
-		for( l in p.levels[0].layers) {
-			var o = l.render();
+		for(level in p.levels)
+		for(layer in level.layers) {
+			var o = layer.render();
 			root.addChild(o);
 			o.scale(3);
 		}

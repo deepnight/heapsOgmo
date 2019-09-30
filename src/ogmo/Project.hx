@@ -45,15 +45,14 @@ class Project {
 		}
 
 		// Init levels
-		var basePath = "res/"+project.entry.directory; // HACK: need resource full path here
+		var res = hxd.res.Loader.currentInstance;
+		var baseResPath = project.entry.directory;
 		var paths : Array<String> = cast json.levelPaths;
-		for(path in paths) {
-			var path = basePath+"/"+path;
-			for(f in sys.FileSystem.readDirectory(path))
-				if( f.indexOf(".json")>=0 ) {
-					var raw = sys.io.File.read( path+"/"+f, false ).readAll().toString();
-					levels.push( new Level(this, haxe.Json.parse(raw)) );
-				}
-		}
+		for( path in paths )
+		for( f in res.dir(baseResPath+"/"+path) )
+			if( f.name.indexOf(".json")>=0 ) {
+				var raw = f.toText();
+				levels.push( new Level(this, haxe.Json.parse(raw)) );
+			}
 	}
 }

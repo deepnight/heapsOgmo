@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "HL debug",
+            "label": "HL test",
             "type": "hxml",
-            "file": "hl.debug.hxml",
+            "file": "test.hl.hxml",
             "presentation": {
                 "reveal": "never",
                 "panel": "dedicated",
@@ -17,18 +17,6 @@
                 "kind": "build",
                 "isDefault": true
             }
-        },
-
-        {
-            "label": "HL release",
-            "type": "hxml",
-            "file": "hl.dx.hxml",
-            "presentation": {
-                "reveal": "never",
-                "panel": "dedicated",
-                "clear": true
-            },
-            "problemMatcher": ["$haxe"],
         }
     ]
 }

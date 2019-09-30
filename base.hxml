@@ -1,7 +1,0 @@
--cp src
--lib heaps
--lib hxbit
--lib deepnightLibs
--lib format
--main Boot
--dce full

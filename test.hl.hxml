@@ -1,0 +1,13 @@
+-cp src
+-cp test/src
+-lib heaps
+-lib hxbit
+-lib deepnightLibs
+-main Boot
+-dce full
+
+-D resourcesPath=test/res
+-D windowSize=1280x800
+-hl bin/client.hl
+-lib hldx
+-debug

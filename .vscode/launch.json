@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "HL debug",
+            "name": "HL run",
             "request": "launch",
             "type": "hl",
-            "hxml": "hl.debug.hxml",
+            "hxml": "test.hl.hxml",
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "HL debug"
+            "preLaunchTask": "HL test"
         }
     ]
 }
