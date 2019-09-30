@@ -9,3 +9,7 @@ See: https://github.com/Ogmo-Editor-3/ogmo-3-lib
 # Usage
 
 See `./test/src/Main.hx`.
+
+# Credits
+
+"Inca" tileset by Kronbits: https://kronbits.itch.io/inca-game-assets
