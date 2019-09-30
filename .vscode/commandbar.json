@@ -19,14 +19,6 @@
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -11
-		},
-		{
-			"text": "📦 Redist",
-			"color": "lightgreen",
-			"command": "haxelib run redistHelper hl.dx.hxml -o redist.$ -P HeapsOgmo",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -50
 		}
 	]
 }
