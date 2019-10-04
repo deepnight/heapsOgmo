@@ -1,7 +1,6 @@
 -cp src
 -cp test/src
 -lib heaps
--lib hxbit
 -lib deepnightLibs
 -main Boot
 -dce full

@@ -4,12 +4,11 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"classPath": "src/",
 	"releasenote": "Initial build",
 	"contributors": ["sbenard"],
 	"dependencies": {
-		"hxbit": "",
 		"heaps": "",
 		"format": "",
 		"deepnightLibs": ""
