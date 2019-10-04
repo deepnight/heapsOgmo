@@ -8,6 +8,18 @@ See: https://github.com/Ogmo-Editor-3/ogmo-3-lib
 
 # Usage
 
+```haxe
+hxd.Res.initEmbed(); // init resources in default sub-folder "./res/"
+
+var ogmoProject = new ogmo.Project( hxd.Res.myOgmoProjectFile );
+
+for( level in ogmoProject.levels )
+for( layer in level.layers ) {
+	var obj = layer.render();
+	myScene.addChild(obj);
+}
+```
+
 See `./test/src/Main.hx`.
 
 # Credits

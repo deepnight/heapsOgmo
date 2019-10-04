@@ -27,13 +27,13 @@ class Main extends dn.Process {
 		dn.Lib.redirectTracesToH2dConsole(c);
 
 		// Start
-		var p = new ogmo.Project(hxd.Res.map.project);
+		var ogmoProject = new ogmo.Project(hxd.Res.map.project);
 
-		for(level in p.levels)
+		for(level in ogmoProject.levels)
 		for(layer in level.layers) {
-			var o = layer.render();
-			root.addChild(o);
-			o.scale(3);
+			var obj = layer.render();
+			root.addChild(obj);
+			obj.scale(3);
 		}
 	}
 }
