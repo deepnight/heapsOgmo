@@ -3,6 +3,7 @@ package ogmo;
 enum LayerType {
 	TileLayer;
 	EntityLayer;
+	IntGrid;
 }
 
 @:allow(ogmo.Entity)
@@ -10,6 +11,7 @@ class Layer {
 	var project(get,never) : Project; inline function get_project() return level.project;
 	var level : Level;
 
+	public var name : String;
 	public var type : LayerType;
 	public var gridWid : Int;
 	public var gridHei : Int;
@@ -24,10 +26,14 @@ class Layer {
 	var tile(get,never) : h2d.Tile; inline function  get_tile() return tileset.t;
 	var tileIds : Map<Int,Int> = new Map();
 
+	var intGridIds : Map<Int,Int> = new Map();
+	var intGridColors: Map<Int,Int> = new Map();
+
 	var entities : Array<Entity> = [];
 
 	public function new(l:Level, json:Dynamic) {
 		level = l;
+		name = json.name;
 		offX = json.offsetX;
 		offY = json.offsetY;
 		gridWid = json.gridCellWidth;
@@ -81,8 +87,28 @@ class Layer {
 			for(e in jsonEntities)
 				entities.push( new Entity(this, e) );
 		}
+		else if( json.grid!=null ) {
+			// IntGrid layer (1D)
+			type = IntGrid;
+			var jsonGrid : Array<Dynamic> = cast json.grid;
+			var idx = 0;
+			for(tid in jsonGrid)
+				intGridIds.set(idx++, Std.parseInt(tid));
+		}
+		// TODO: support IntGrid 2D
 		else
-			trace("unsupported level format");
+			throw "Unsupported layer format in: "+json.name;
+
+
+		// Parse IntGrid colors
+		var layerDefs : Array<Dynamic> = project.json.layers;
+		for(l in layerDefs)
+			if( l.definition=="grid" && l.name==name ) {
+				for(k in Reflect.fields(l.legend)) {
+					var c : String = Reflect.field(l.legend,k);
+					intGridColors.set( Std.parseInt(k), dn.Color.hexToInt(c.substr(0,7)) );
+				}
+			}
 	}
 
 	public inline function isValid(cx,cy) return cx>=0 && cx<cWid && cy>=0 && cy<cHei;
@@ -90,6 +116,10 @@ class Layer {
 
 	public inline function getTileId(cx,cy) {
 		return !tileIds.exists(coordId(cx,cy)) ? -1 : tileIds.get( coordId(cx,cy) );
+	}
+
+	public inline function getIntGrid(cx,cy) {
+		return isValid(cx,cy) && intGridIds.exists(coordId(cx,cy)) ? intGridIds.get(coordId(cx,cy)) : 0;
 	}
 
 	public function render(?parent:h2d.Object) : h2d.Object {
@@ -116,6 +146,16 @@ class Layer {
 					g.setPosition(e.x, e.y);
 					g.beginFill(e.color, 1);
 					g.drawRect(0,0,e.pxWid,e.pxHei);
+				}
+
+			case IntGrid:
+				for(cy in 0...cHei)
+				for(cx in 0...cWid) {
+					if( getIntGrid(cx,cy)<=0 )
+						continue;
+					var g = new h2d.Graphics(parent);
+					g.beginFill( intGridColors.get(getIntGrid(cx,cy)), 1 );
+					g.drawRect(cx*gridWid, cy*gridHei, gridWid, gridHei);
 				}
 		}
 
