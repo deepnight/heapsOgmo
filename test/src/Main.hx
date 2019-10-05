@@ -27,7 +27,7 @@ class Main extends dn.Process {
 		dn.Lib.redirectTracesToH2dConsole(c);
 
 		// Start
-		var ogmoProject = new ogmo.Project(hxd.Res.map.project);
+		var ogmoProject = new ogmo.Project(hxd.Res.map.project, false);
 
 		for(level in ogmoProject.levels)
 		for(layer in level.layers) {
