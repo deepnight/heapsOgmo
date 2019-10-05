@@ -7,6 +7,7 @@ class Level {
 	public var name : String;
 	public var path : String;
 	public var layers : Array<Layer> = [];
+	public var layersReversed : Array<Layer> = [];
 
 	public var pxWid : Int;
 	public var pxHei : Int;
@@ -25,6 +26,8 @@ class Level {
 		var jsonLayers : Array<Dynamic> = cast json.layers;
 		for(l in jsonLayers)
 			layers.push( new Layer(this, l) );
-		layers.reverse();
+
+		layersReversed = layers.copy();
+		layersReversed.reverse();
 	}
 }
