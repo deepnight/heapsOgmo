@@ -22,14 +22,13 @@ class Layer {
 	public var cHei(get,never) : Int; inline function get_cHei() return M.ceil( level.pxHei/gridHei );
 
 	var tilesetLabel : String;
-	var tileset(get,never) : Tileset; inline function get_tileset() return project.tilesets.get(tilesetLabel);
-	var tile(get,never) : h2d.Tile; inline function  get_tile() return tileset.t;
+	public var tileset(get,never) : Tileset; inline function get_tileset() return project.tilesets.get(tilesetLabel);
 	var tileIds : Map<Int,Int> = new Map();
 
 	var intGridIds : Map<Int,Int> = new Map();
 	var intGridColors: Map<Int,Int> = new Map();
 
-	var entities : Array<Entity> = [];
+	public var entities : Array<Entity> = [];
 
 	public function new(l:Level, json:Dynamic) {
 		level = l;
@@ -128,7 +127,7 @@ class Layer {
 
 		switch type {
 			case TileLayer:
-				var tg = new h2d.TileGroup(tile,wrapper);
+				var tg = new h2d.TileGroup(tileset.t, wrapper);
 				for(cy in 0...cHei)
 				for(cx in 0...cWid) {
 					if( getTileId(cx,cy)<0 )
