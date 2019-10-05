@@ -21,6 +21,7 @@ class Entity {
 	public var pxWid(get,never) : Int; inline function get_pxWid() return projectSettingsJson.size.x;
 	public var pxHei(get,never) : Int; inline function get_pxHei() return projectSettingsJson.size.y;
 	public var color(get,never) : Int; inline function get_color() return dn.Color.hexToInt(projectSettingsJson.color.substr(0,7));
+	public var nodes : Array<EntityNode> = new Array();
 
 	public function new(l:Layer, json:Dynamic) {
 		layer = l;
@@ -28,6 +29,13 @@ class Entity {
 		x = json.x;
 		y = json.y;
 		values = json.values==null ? {} : json.values;
+
+		if( json.nodes!=null ) {
+			var jsonNodes : Array<Dynamic> = cast json.nodes;
+			for(n in jsonNodes)
+				nodes.push( new EntityNode(layer, n.x, n.y) );
+			trace(nodes);
+		}
 
 		var jsonEnts : Array<Dynamic> = project.json.entities;
 		for(e in jsonEnts)
