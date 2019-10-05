@@ -4,9 +4,9 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"classPath": "src/",
-	"releasenote": "Removed hxbit dependency, better readme",
+	"releasenote": "Added support for Int-grid layers. Other fixes.",
 	"contributors": ["sbenard"],
 	"dependencies": {
 		"heaps": "",
