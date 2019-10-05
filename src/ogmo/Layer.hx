@@ -3,7 +3,7 @@ package ogmo;
 enum LayerType {
 	TileLayer;
 	EntityLayer;
-	IntGrid;
+	IntGridLayer;
 }
 
 @:allow(ogmo.Entity)
@@ -89,7 +89,7 @@ class Layer {
 		}
 		else if( json.grid!=null ) {
 			// IntGrid layer (1D)
-			type = IntGrid;
+			type = IntGridLayer;
 			var jsonGrid : Array<Dynamic> = cast json.grid;
 			var idx = 0;
 			for(tid in jsonGrid)
@@ -148,7 +148,7 @@ class Layer {
 					g.drawRect(0,0,e.pxWid,e.pxHei);
 				}
 
-			case IntGrid:
+			case IntGridLayer:
 				for(cy in 0...cHei)
 				for(cx in 0...cWid) {
 					if( getIntGrid(cx,cy)<=0 )
