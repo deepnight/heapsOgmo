@@ -34,7 +34,6 @@ class Entity {
 			var jsonNodes : Array<Dynamic> = cast json.nodes;
 			for(n in jsonNodes)
 				nodes.push( new EntityNode(layer, n.x, n.y) );
-			trace(nodes);
 		}
 
 		var jsonEnts : Array<Dynamic> = project.json.entities;
