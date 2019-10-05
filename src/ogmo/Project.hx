@@ -49,11 +49,13 @@ class Project {
 		var res = hxd.res.Loader.currentInstance;
 		var baseResPath = project.entry.directory;
 		var paths : Array<String> = cast json.levelPaths;
-		for( path in paths )
-		for( f in res.dir(baseResPath+"/"+path) )
-			if( f.name.indexOf(".json")>=0 ) {
-				var raw = f.toText();
-				levels.push( new Level(this, f, haxe.Json.parse(raw)) );
-			}
+		for( path in paths ) {
+			var dir = res.load(project.entry.directory + (path=="." ? "" : "/"+path));
+			for(e in dir)
+				if( e.name.indexOf(".json")>=0 ) {
+					var raw = e.toText();
+					levels.push( new Level(this, e, haxe.Json.parse(raw)) );
+				}
+		}
 	}
 }
