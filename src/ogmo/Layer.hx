@@ -122,13 +122,13 @@ class Layer {
 		return isValid(cx,cy) && intGridIds.exists(coordId(cx,cy)) ? intGridIds.get(coordId(cx,cy)) : 0;
 	}
 
-	public function render(?parent:h2d.Object) : h2d.Object {
-		if( parent==null )
-			parent = new h2d.Object();
+	public function render(?parent:h2d.Object, ?alpha=1.0) : h2d.Object {
+		var wrapper = new h2d.Object(parent);
+		wrapper.alpha = alpha;
 
 		switch type {
 			case TileLayer:
-				var tg = new h2d.TileGroup(tile,parent);
+				var tg = new h2d.TileGroup(tile,wrapper);
 				for(cy in 0...cHei)
 				for(cx in 0...cWid) {
 					if( getTileId(cx,cy)<0 )
@@ -142,7 +142,7 @@ class Layer {
 
 			case EntityLayer:
 				for(e in entities) {
-					var g = new h2d.Graphics(parent);
+					var g = new h2d.Graphics(wrapper);
 					g.setPosition(e.x, e.y);
 					g.lineStyle(1,e.color,1);
 					g.beginFill(e.color, 0.6);
@@ -154,12 +154,12 @@ class Layer {
 				for(cx in 0...cWid) {
 					if( getIntGrid(cx,cy)<=0 )
 						continue;
-					var g = new h2d.Graphics(parent);
+					var g = new h2d.Graphics(wrapper);
 					g.beginFill( intGridColors.get(getIntGrid(cx,cy)), 1 );
 					g.drawRect(cx*gridWid, cy*gridHei, gridWid, gridHei);
 				}
 		}
 
-		return parent;
+		return wrapper;
 	}
 }
