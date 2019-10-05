@@ -144,7 +144,8 @@ class Layer {
 				for(e in entities) {
 					var g = new h2d.Graphics(parent);
 					g.setPosition(e.x, e.y);
-					g.beginFill(e.color, 1);
+					g.lineStyle(1,e.color,1);
+					g.beginFill(e.color, 0.6);
 					g.drawRect(0,0,e.pxWid,e.pxHei);
 				}
 
