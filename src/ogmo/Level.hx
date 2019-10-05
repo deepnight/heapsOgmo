@@ -4,6 +4,8 @@ package ogmo;
 @:allow(ogmo.Entity)
 class Level {
 	var project : Project;
+	public var name : String;
+	public var path : String;
 	public var layers : Array<Layer> = [];
 
 	public var pxWid : Int;
@@ -11,8 +13,11 @@ class Level {
 	public var offX: Int;
 	public var offY : Int;
 
-	public function new(p:Project, json:Dynamic) {
+	public function new(p:Project, file:hxd.res.Resource, json:Dynamic) {
 		project = p;
+		name = file.name;
+		path = file.entry.directory;
+
 		pxWid = json.width;
 		pxHei = json.height;
 		offX = json.offsetX;

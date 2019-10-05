@@ -52,7 +52,7 @@ class Project {
 		for( f in res.dir(baseResPath+"/"+path) )
 			if( f.name.indexOf(".json")>=0 ) {
 				var raw = f.toText();
-				levels.push( new Level(this, haxe.Json.parse(raw)) );
+				levels.push( new Level(this, f, haxe.Json.parse(raw)) );
 			}
 	}
 }
