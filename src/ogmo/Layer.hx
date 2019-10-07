@@ -121,13 +121,16 @@ class Layer {
 		return isValid(cx,cy) && intGridIds.exists(coordId(cx,cy)) ? intGridIds.get(coordId(cx,cy)) : 0;
 	}
 
-	public function render(?parent:h2d.Object, ?alpha=1.0) : h2d.Object {
+	public function render(?parent:h2d.Object, ?alpha=1.0, ?blend:h2d.BlendMode) : h2d.Object {
 		var wrapper = new h2d.Object(parent);
 		wrapper.alpha = alpha;
+		if( blend==null )
+			blend = Alpha;
 
 		switch type {
 			case TileLayer:
 				var tg = new h2d.TileGroup(tileset.t, wrapper);
+				tg.blendMode = blend;
 				for(cy in 0...cHei)
 				for(cx in 0...cWid) {
 					if( getTileId(cx,cy)<0 )
