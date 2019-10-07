@@ -66,4 +66,12 @@ class Project {
 				}
 		}
 	}
+
+	public function getLevelName(n:String) {
+		n+=".json";
+		for(l in levels)
+			if( l.name==n )
+				return l;
+		return null;
+	}
 }
