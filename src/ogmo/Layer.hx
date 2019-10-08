@@ -129,7 +129,7 @@ class Layer {
 
 		switch type {
 			case TileLayer:
-				var tg = new h2d.TileGroup(tileset.t, wrapper);
+				var tg = new h2d.TileGroup(tileset.tile, wrapper);
 				tg.blendMode = blend;
 				for(cy in 0...cHei)
 				for(cx in 0...cWid) {
