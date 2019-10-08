@@ -1,7 +1,7 @@
 package ogmo;
 
 class Tileset {
-	public var t: h2d.Tile;
+	public var t: h2d.Tile; // TODO rename > tile
 	public var label: String;
 	public var path: String;
 	public var tWid : Int;
