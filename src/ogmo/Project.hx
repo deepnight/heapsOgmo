@@ -67,12 +67,14 @@ class Project {
 		}
 	}
 
-	public function getLevelName(n:String) {
+	public function getLevelByName(n:String) {
 		if( n.indexOf(".json")<0 )
 			n+=".json";
+
 		for(l in levels)
 			if( l.name==n )
 				return l;
+
 		return null;
 	}
 }

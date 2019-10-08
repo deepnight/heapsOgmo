@@ -9,7 +9,7 @@ class Level {
 	public var layers : Array<Layer> = [];
 
 	public var layersReversed : Array<Layer> = [];
-	public var layersByName : Map<String,Layer> = new Map();
+	var layersByName : Map<String,Layer> = new Map();
 
 	public var pxWid : Int;
 	public var pxHei : Int;
@@ -41,7 +41,7 @@ class Level {
 		layersReversed.reverse();
 	}
 
-
+	public inline function getLayerByName(id:String) return layersByName.get(id);
 
 	public inline function has(v:String) return Reflect.hasField(values,v);
 	public inline function get(v:String) return Reflect.field(values,v);
