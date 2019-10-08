@@ -4,9 +4,9 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"classPath": "src/",
-	"releasenote": "Added node support to Entities. Added an option to ignore embed image. Bugfixes.",
+	"releasenote": "Added level properties, blendmode render parameter & name-based level getter.",
 	"contributors": ["sbenard"],
 	"dependencies": {
 		"heaps": "",
