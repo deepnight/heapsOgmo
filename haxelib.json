@@ -4,7 +4,7 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"classPath": "src/",
 	"releasenote": "Updated naming for consistency",
 	"contributors": ["sbenard"],
