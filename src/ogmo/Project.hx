@@ -13,46 +13,47 @@ class Project {
 		json = haxe.Json.parse(raw);
 
 		// Init tilesets
-		for( jsonTileset in cast(json.tilesets, Array<Dynamic>) ) {
-			if( useEmbededImageData) {
-				var parts = jsonTileset.image.split(",");
+		if( json.tilesets!=null )
+			for( jsonTileset in cast(json.tilesets, Array<Dynamic>) ) {
+				if( useEmbededImageData) {
+					var parts = jsonTileset.image.split(",");
 
-				var r = ( ~/data:[a-z]+\/([a-z0-9]+)/gi ); // extract image format
-				r.match( parts[0] );
-				var imageType = r.matched(1);
-				switch( imageType ) {
-					case "png" :
-						var bytes = haxe.crypto.Base64.decode(parts[1]);
-						var reader = new format.png.Reader( new haxe.io.BytesInput(bytes) );
-						var data = reader.read();
-						var wid = 0;
-						var hei = 0;
-						for(e in data)
-							switch e {
-								case CHeader(h):
-									wid = h.width;
-									hei = h.height;
-								case _:
-							}
-						if( wid==0 || hei==0 ) throw "Missing width or height";
+					var r = ( ~/data:[a-z]+\/([a-z0-9]+)/gi ); // extract image format
+					r.match( parts[0] );
+					var imageType = r.matched(1);
+					switch( imageType ) {
+						case "png" :
+							var bytes = haxe.crypto.Base64.decode(parts[1]);
+							var reader = new format.png.Reader( new haxe.io.BytesInput(bytes) );
+							var data = reader.read();
+							var wid = 0;
+							var hei = 0;
+							for(e in data)
+								switch e {
+									case CHeader(h):
+										wid = h.width;
+										hei = h.height;
+									case _:
+								}
+							if( wid==0 || hei==0 ) throw "Missing width or height";
 
-						var pixels = hxd.Pixels.alloc(wid, hei, BGRA);
-						format.png.Tools.extract32(data, pixels.bytes);
+							var pixels = hxd.Pixels.alloc(wid, hei, BGRA);
+							format.png.Tools.extract32(data, pixels.bytes);
 
-						var t = new Tileset(h2d.Tile.fromPixels(pixels), jsonTileset);
-						tilesets.set(t.label, t);
+							var t = new Tileset(h2d.Tile.fromPixels(pixels), jsonTileset);
+							tilesets.set(t.label, t);
 
-					case _ : throw "Unsupported tileset image format: "+imageType;
+						case _ : throw "Unsupported tileset image format: "+imageType;
+					}
+				}
+				else {
+					var res = hxd.res.Loader.currentInstance;
+					var path = project.entry.directory+"/"+StringTools.replace(jsonTileset.path,"\\","/");
+					var img = res.load(path);
+					var t = new Tileset(img.toTile(), jsonTileset);
+					tilesets.set(t.label, t);
 				}
 			}
-			else {
-				var res = hxd.res.Loader.currentInstance;
-				var path = project.entry.directory+"/"+StringTools.replace(jsonTileset.path,"\\","/");
-				var img = res.load(path);
-				var t = new Tileset(img.toTile(), jsonTileset);
-				tilesets.set(t.label, t);
-			}
-		}
 
 		// Init levels
 		var res = hxd.res.Loader.currentInstance;
