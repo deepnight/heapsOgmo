@@ -117,6 +117,8 @@ class Layer {
 			}
 	}
 
+	public function toString() return '$type:$name';
+
 	public inline function isValid(cx,cy) return cx>=0 && cx<cWid && cy>=0 && cy<cHei;
 	public inline function coordId(cx,cy) return isValid(cx,cy) ? cx + cy*cWid : 0;
 

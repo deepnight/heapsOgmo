@@ -24,6 +24,8 @@ class Tileset {
 			tiles.set( tx+ty*perLine, tile.sub(tx*tWid, ty*tHei, tWid, tHei) );
 	}
 
+	public function toString() return 'Tileset:$label';
+
 	public function coordId(tx,ty) return tx + ty*M.ceil(tile.width/tWid);
 
 	public inline function getTile(id:Int) : h2d.Tile {

@@ -4,11 +4,13 @@ package ogmo;
 @:allow(ogmo.Layer)
 class Project {
 	var json : Dynamic;
+	public var path : String;
 	public var name(get,never) : String; inline function get_name() return json.name;
 	public var tilesets : Map<String, Tileset> = new Map();
 	public var levels : Array<Level> = [];
 
 	public function new(project:hxd.res.Resource, useEmbededImageData:Bool) {
+		path = project.entry.path;
 		var raw = project.entry.getText();
 		json = haxe.Json.parse(raw);
 
@@ -67,6 +69,8 @@ class Project {
 				}
 		}
 	}
+
+	public function toString() return '"$name" ($path)';
 
 	public function getLevelByName(n:String) {
 		if( n.indexOf(".json")<0 )

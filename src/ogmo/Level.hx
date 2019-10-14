@@ -5,7 +5,7 @@ package ogmo;
 class Level {
 	var project : Project;
 	public var name : String;
-	public var path : String;
+	public var directory : String;
 	public var layers : Array<Layer> = [];
 
 	public var layersReversed : Array<Layer> = [];
@@ -21,7 +21,7 @@ class Level {
 	public function new(p:Project, file:hxd.res.Resource, json:Dynamic) {
 		project = p;
 		name = file.name;
-		path = file.entry.directory;
+		directory = file.entry.directory;
 
 		pxWid = json.width;
 		pxHei = json.height;
@@ -40,6 +40,8 @@ class Level {
 		layersReversed = layers.copy();
 		layersReversed.reverse();
 	}
+
+	public function toString() return 'Level:$name';
 
 	public inline function getLayerByName(id:String) return layersByName.get(id);
 
