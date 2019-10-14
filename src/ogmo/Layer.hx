@@ -29,6 +29,7 @@ class Layer {
 	var intGridColors: Map<Int,Int> = new Map();
 
 	public var entities : Array<Entity> = [];
+	var entitiesByName : Map<String, Array<Entity>> = new Map();
 
 	public function new(l:Level, json:Dynamic) {
 		level = l;
@@ -83,8 +84,14 @@ class Layer {
 			// Entity layer
 			type = EntityLayer;
 			var jsonEntities : Array<Dynamic> = cast json.entities;
-			for(e in jsonEntities)
-				entities.push( new Entity(this, e) );
+			for(json in jsonEntities) {
+				var e = new Entity(this, json);
+				entities.push(e);
+				if( !entitiesByName.exists(e.name) )
+					entitiesByName.set(e.name, [e]);
+				else
+					entitiesByName.get(e.name).push(e);
+			}
 		}
 		else if( json.grid!=null ) {
 			// IntGrid layer (1D)
@@ -119,6 +126,14 @@ class Layer {
 
 	public inline function getIntGrid(cx,cy) {
 		return isValid(cx,cy) && intGridIds.exists(coordId(cx,cy)) ? intGridIds.get(coordId(cx,cy)) : 0;
+	}
+
+	public inline function getEntities(id:String) : Array<Entity> {
+		return entitiesByName.exists(id) ? entitiesByName.get(id) : [];
+	}
+
+	public inline function getEntity(id:String) : Null<Entity> {
+		return getEntities(id)[0];
 	}
 
 	public function render(?parent:h2d.Object, ?alpha=1.0, ?blend:h2d.BlendMode) : h2d.Object {
