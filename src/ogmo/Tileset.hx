@@ -1,9 +1,9 @@
 package ogmo;
 
 class Tileset {
-	public var tile: h2d.Tile;
-	public var label: String;
-	public var path: String;
+	public var tile : h2d.Tile;
+	public var label : String;
+	public var fullPath : String;
 	public var tWid : Int;
 	public var tHei : Int;
 	var tiles : Map<Int,h2d.Tile> = new Map();
@@ -11,7 +11,7 @@ class Tileset {
 	public function new(t:h2d.Tile, json:Dynamic) {
 		this.tile = t;
 		label = json.label;
-		path = json.path;
+		fullPath = json.path;
 		tWid = json.tileWidth;
 		tHei = json.tileHeight;
 
