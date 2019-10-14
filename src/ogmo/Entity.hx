@@ -18,8 +18,8 @@ class Entity {
 	var values : Dynamic;
 
 	var projectSettingsJson : Dynamic;
-	public var pxWid(get,never) : Int; inline function get_pxWid() return projectSettingsJson.size.x;
-	public var pxHei(get,never) : Int; inline function get_pxHei() return projectSettingsJson.size.y;
+	public var pxWid : Int;
+	public var pxHei : Int;
 	public var color(get,never) : Int; inline function get_color() return dn.Color.hexToInt(projectSettingsJson.color.substr(0,7));
 	public var nodes : Array<EntityNode> = new Array();
 
@@ -28,6 +28,8 @@ class Entity {
 		name = json.name;
 		x = json.x;
 		y = json.y;
+		pxWid = json.width==null ? 0 : json.width;
+		pxHei = json.height==null ? 0 : json.height;
 		values = json.values==null ? {} : json.values;
 
 		if( json.nodes!=null ) {
@@ -44,7 +46,7 @@ class Entity {
 			}
 	}
 
-	public function toString() return '$name @ $cx,$cy($x,$y) ; values=$values';
+	public function toString() return '$name @ $cx,$cy($x,$y ; ${pxWid}x${pxHei}) ; values=$values';
 
 	public inline function has(v:String) return Reflect.hasField(values,v);
 	public inline function get(v:String) return Reflect.field(values,v);
