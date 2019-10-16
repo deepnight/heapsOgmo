@@ -9,10 +9,16 @@ class Project {
 	public var tilesets : Map<String, Tileset> = new Map();
 	public var levels : Array<Level> = [];
 
+	var res : hxd.res.Loader;
+	var project : hxd.res.Resource;
+
 	public function new(project:hxd.res.Resource, useEmbededImageData:Bool) {
 		fullPath = project.entry.path;
 		var raw = project.entry.getText();
 		json = haxe.Json.parse(raw);
+
+		res = hxd.res.Loader.currentInstance;
+		this.project = project;
 
 		// Init tilesets
 		if( json.tilesets!=null )
@@ -58,16 +64,21 @@ class Project {
 			}
 
 		// Init levels
-		var res = hxd.res.Loader.currentInstance;
 		var paths : Array<String> = cast json.levelPaths;
 		for( path in paths ) {
-			var dir = res.load(project.entry.directory + (path=="." ? "" : "/"+path));
-			for(e in dir)
-				if( e.name.indexOf(".json")>=0 ) {
-					var raw = e.toText();
-					levels.push( new Level(this, e, haxe.Json.parse(raw)) );
-				}
+			initLevelInDir(path);
 		}
+	}
+
+	function initLevelInDir(path:String) {
+		var dir = res.load(project.entry.directory + (path=="." ? "" : "/"+path));
+		for(e in dir)
+			if( e.name.indexOf(".json")>=0 ) {
+				var raw = e.toText();
+				levels.push( new Level(this, e, haxe.Json.parse(raw)) );
+			}
+			else if (e.entry.isDirectory)
+				initLevelInDir(e.name);
 	}
 
 	public function toString() return '"$name" ($fullPath)';
