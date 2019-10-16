@@ -46,6 +46,10 @@ class Entity {
 			}
 	}
 
+	public function prependStartToNodes() {
+		nodes.unshift( new EntityNode(layer, x, y) );
+	}
+
 	public function toString() return '$name @ $cx,$cy($x,$y ; ${pxWid}x${pxHei}) ; values=$values';
 
 	public inline function has(v:String) return Reflect.hasField(values,v);
