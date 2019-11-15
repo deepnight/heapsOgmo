@@ -29,15 +29,16 @@ class Main extends dn.Process {
 
 		wrapper = new h2d.Object(root);
 		wrapper.scale(4);
-		hxd.Res.map.topDown_json.watch( function() renderMap() );
-		renderMap();
+		renderMap(hxd.Res.map.topDown_ogmo, hxd.Res.map.topDown_json);
 	}
 
-	function renderMap() {
+	function renderMap(ogmo:hxd.res.Resource, level:hxd.res.Resource) {
+		level.watch( renderMap.bind(ogmo,level) );
+
 		wrapper.removeChildren();
 
-		var ogmoProject = new ogmo.Project(hxd.Res.map.topDown_ogmo, false);
-		var level = ogmoProject.getLevelByName("topDown");
+		var ogmoProject = new ogmo.Project(ogmo, false);
+		var level = ogmoProject.getLevelByName(level.entry.name);
 
 		for(layer in level.layersReversed) {
 			var obj = layer.render();
