@@ -4,9 +4,9 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"classPath": "src/",
-	"releasenote": "Removed version number from haxelib deps",
+	"releasenote": "Entity grid size can now be overridden manually",
 	"contributors": ["sbenard"],
 	"dependencies": {
 		"heaps": "",
