@@ -13,8 +13,8 @@ class Entity {
 	public var name : String;
 	public var x : Int;
 	public var y : Int;
-	public var cx(get,never) : Int; inline function get_cx() return Std.int(x/layer.gridWid);
-	public var cy(get,never) : Int; inline function get_cy() return Std.int(y/layer.gridHei);
+	public var cx(get,never) : Int; inline function get_cx() return Std.int(x/(gridWidOverride==null ? layer.gridWid : gridWidOverride));
+	public var cy(get,never) : Int; inline function get_cy() return Std.int(y/(gridHeiOverride==null ? layer.gridHei : gridHeiOverride));
 	var values : Dynamic;
 
 	var projectSettingsJson : Dynamic;
@@ -22,6 +22,9 @@ class Entity {
 	public var pxHei : Int;
 	public var color(get,never) : Int; inline function get_color() return dn.Color.hexToInt(projectSettingsJson.color.substr(0,7));
 	public var nodes : Array<EntityNode> = new Array();
+
+	var gridWidOverride : Null<Int>;
+	var gridHeiOverride : Null<Int>;
 
 	public function new(l:Layer, json:Dynamic) {
 		layer = l;
@@ -35,7 +38,7 @@ class Entity {
 		if( json.nodes!=null ) {
 			var jsonNodes : Array<Dynamic> = cast json.nodes;
 			for(n in jsonNodes)
-				nodes.push( new EntityNode(layer, n.x, n.y) );
+				nodes.push( new EntityNode(this, n.x, n.y) );
 		}
 
 		var jsonEnts : Array<Dynamic> = project.json.entities;
@@ -46,8 +49,21 @@ class Entity {
 			}
 	}
 
+	public function overrideGridSize(gw:Int,?gh:Int) {
+		gridWidOverride = gw;
+		gridHeiOverride = gh==null ? gw : gh;
+	}
+	public function resetGridSize() {
+		gridWidOverride = gridHeiOverride = null;
+	}
+	public function getGridWid() return gridWidOverride==null ? layer.gridWid : gridWidOverride;
+	public function getGridHei() return gridHeiOverride==null ? layer.gridHei : gridHeiOverride;
+
+	public inline function xToGrid(g:Int) return Std.int( x/g );
+	public inline function yToGrid(g:Int) return Std.int( y/g );
+
 	public function prependStartToNodes() {
-		nodes.unshift( new EntityNode(layer, x, y) );
+		nodes.unshift( new EntityNode(this, x, y) );
 	}
 
 	public function toString() return '$name @ $cx,$cy($x,$y ; ${pxWid}x${pxHei}) ; values=$values';
