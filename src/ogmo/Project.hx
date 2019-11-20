@@ -83,6 +83,41 @@ class Project {
 
 	public function toString() return '"$name" ($fullPath)';
 
+	public function matchEntityEnum<T>(entityId:String, value:String, baseEnum:Enum<T>) {
+		var jsonEntities : Array<Dynamic> = json.entities;
+
+		for(e in jsonEntities) {
+			if( e.name!=entityId )
+				continue;
+
+			var jsonValues : Array<Dynamic> = e.values;
+			for(v in jsonValues) {
+				trace(v.name);
+				if( v.name==value && v.definition=="Enum" ) {
+
+					var choices : Array<String> = v.choices;
+					trace(" -> "+choices);
+					var choiceMap = new Map();
+					for( c in choices ) {
+						choiceMap.set(c, true);
+						try Type.createEnum(baseEnum,c)
+						catch( e:Dynamic ) throw "Choice "+entityId+"."+value+"."+c+" is not matching code enum "+baseEnum;
+					}
+
+					for( c in Type.getEnumConstructs(baseEnum) )
+						if( !choiceMap.exists(c) )
+							throw "Missing enum choice "+entityId+"."+value+"."+c;
+
+				}
+
+				return; // all ok
+			}
+
+		}
+
+		throw "Unknown value "+entityId+"."+value;
+	}
+
 	public function getLevelByName(n:String) {
 		if( n.indexOf(".json")<0 )
 			n+=".json";
