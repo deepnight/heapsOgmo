@@ -4,9 +4,9 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"classPath": "src/",
-	"releasenote": "Entity grid size can now be overridden manually",
+	"releasenote": "Added value/enum matchers to check existing data",
 	"contributors": ["sbenard"],
 	"dependencies": {
 		"heaps": "",
