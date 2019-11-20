@@ -71,6 +71,8 @@ class Entity {
 	public inline function has(v:String) return Reflect.hasField(values,v);
 	public inline function get(v:String) return Reflect.field(values,v);
 
+	@:allow(ogmo.Project) inline function getAllValueNames() return Reflect.fields(values);
+
 	public inline function getStr(v:String, ?def:String=null) {
 		return has(v) ? get(v): def;
 	}

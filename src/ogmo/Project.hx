@@ -92,11 +92,9 @@ class Project {
 
 			var jsonValues : Array<Dynamic> = e.values;
 			for(v in jsonValues) {
-				trace(v.name);
 				if( v.name==value && v.definition=="Enum" ) {
 
 					var choices : Array<String> = v.choices;
-					trace(" -> "+choices);
 					var choiceMap = new Map();
 					for( c in choices ) {
 						choiceMap.set(c, true);
@@ -108,14 +106,43 @@ class Project {
 						if( !choiceMap.exists(c) )
 							throw "Missing enum choice "+entityId+"."+value+"."+c;
 
+					return; // all ok
 				}
-
-				return; // all ok
 			}
 
 		}
 
 		throw "Unknown value "+entityId+"."+value;
+	}
+
+	public function matchCdbStringRef<T>(entityId:String, value:String, cdbResolver:String->?Bool->Dynamic) {
+		var jsonEntities : Array<Dynamic> = json.entities;
+
+		for( level in levels )
+		for( layer in level.layers )
+		for( e in layer.entities ) {
+			if( e.name!=entityId )
+				continue;
+
+			var found = false;
+			for( k in e.getAllValueNames() ) {
+				if( k!=value )
+					continue;
+
+				found = true;
+				var v = e.getStr(k);
+				if( v==null || v=="" )
+					break;
+
+				if( cdbResolver(e.getStr(k),true)==null )
+					throw '"${e.getStr(k)}" doesn\'t exist in CDB ($entityId @ ${e.x},${e.y} in "${level.name}")';
+				else
+					break;
+			}
+
+			if( !found )
+				throw "Unknown value "+entityId+"."+value;
+		}
 	}
 
 	public function getLevelByName(n:String) {
