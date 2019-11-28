@@ -4,9 +4,9 @@
 	"license": "Apache",
 	"tags": ["Heaps","Hashlink","Ogmo","import"],
 	"description": "Import Ogmo3 generated maps to Heaps based projects",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"classPath": "src/",
-	"releasenote": "Added value/enum matchers to check existing data",
+	"releasenote": "Added better support for native or string values",
 	"contributors": ["sbenard"],
 	"dependencies": {
 		"heaps": "",
