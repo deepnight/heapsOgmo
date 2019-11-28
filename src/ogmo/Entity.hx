@@ -68,8 +68,8 @@ class Entity {
 
 	public function toString() return '$name @ $cx,$cy($x,$y ; ${pxWid}x${pxHei}) ; values=$values';
 
-	public inline function has(v:String) return Reflect.hasField(values,v);
-	public inline function get(v:String) return Reflect.field(values,v);
+	public inline function has(v:String) : Bool return Reflect.hasField(values,v);
+	public inline function get(v:String) : Dynamic return Reflect.field(values,v);
 
 	@:allow(ogmo.Project) inline function getAllValueNames() return Reflect.fields(values);
 
@@ -78,16 +78,21 @@ class Entity {
 	}
 
 	public inline function getBool(v:String, ?def=false) {
-		return has(v) ? get(v)=="true" : def;
+		return has(v) ? get(v)=="true" || get(v)==true : def;
 	}
 
 	public inline function getInt(v:String, ?def=0) {
-		var out = Std.parseInt( get(v) );
+		var out =
+			Type.typeof(get(v))==TInt ? get(v)
+			: Type.typeof(get(v))==TFloat ? Std.int(get(v))
+			: Std.parseInt(get(v));
 		return has(v) && out!=null ? out : def;
 	}
 
 	public inline function getFloat(v:String, ?def=0.) {
-		var out = Std.parseFloat( get(v) );
+		var out = Type.typeof(get(v))==TInt || Type.typeof(get(v))==TFloat
+			? get(v)
+			: Std.parseFloat(get(v));
 		return has(v) && !Math.isNaN(out) && Math.isFinite(out) ? out : def;
 	}
 
