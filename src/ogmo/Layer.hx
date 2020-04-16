@@ -130,6 +130,10 @@ class Layer {
 		return isValid(cx,cy) && intGridIds.exists(coordId(cx,cy)) ? intGridIds.get(coordId(cx,cy)) : 0;
 	}
 
+	public inline function getIntGridColor(id:Int) {
+		return intGridColors.get(id);
+	}
+
 	public inline function getEntities(id:String) : Array<Entity> {
 		return entitiesByName.exists(id) ? entitiesByName.get(id) : [];
 	}
