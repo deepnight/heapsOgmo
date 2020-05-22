@@ -201,8 +201,8 @@ class Layer {
 				}
 
 			case DecalLayer:
-				for(e in decals) {
-				}
+				for(e in decals)
+					e.makeBitmap(wrapper);
 		}
 
 		return wrapper;
