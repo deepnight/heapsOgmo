@@ -2,6 +2,7 @@ package ogmo;
 
 @:allow(ogmo.Layer)
 @:allow(ogmo.Entity)
+@:allow(ogmo.Decal)
 class Level {
 	var project : Project;
 	public var name : String;

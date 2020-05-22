@@ -3,10 +3,12 @@ package ogmo;
 enum LayerType {
 	TileLayer;
 	EntityLayer;
+	DecalLayer;
 	IntGridLayer;
 }
 
 @:allow(ogmo.Entity)
+@:allow(ogmo.Decal)
 class Layer {
 	var project(get,never) : Project; inline function get_project() return level.project;
 	var level : Level;
@@ -27,6 +29,8 @@ class Layer {
 
 	var intGridIds : Map<Int,Int> = new Map();
 	var intGridColors: Map<Int,Int> = new Map();
+
+	public var decals: Array<Decal> = [];
 
 	public var entities : Array<Entity> = [];
 	var entitiesByName : Map<String, Array<Entity>> = new Map();
@@ -93,6 +97,16 @@ class Layer {
 					entitiesByName.get(e.name).push(e);
 			}
 		}
+		else if( json.decals!=null ) {
+			// Decals layer
+			type = DecalLayer;
+			var jsonDecals : Array<Dynamic> = cast json.decals;
+			var folder = json.folder;
+			for(json in jsonDecals) {
+				var d = new Decal(this, folder, json);
+				decals.push(d);
+			}
+		}
 		else if( json.grid!=null ) {
 			// IntGrid layer (1D)
 			type = IntGridLayer;
@@ -138,6 +152,10 @@ class Layer {
 		return entitiesByName.exists(id) ? entitiesByName.get(id) : [];
 	}
 
+	public inline function getDecals() : Array<Decal> {
+		return decals;
+	}
+
 	public inline function getEntity(id:String) : Null<Entity> {
 		return getEntities(id)[0];
 	}
@@ -180,6 +198,10 @@ class Layer {
 					var g = new h2d.Graphics(wrapper);
 					g.beginFill( intGridColors.get(getIntGrid(cx,cy)), 1 );
 					g.drawRect(cx*gridWid, cy*gridHei, gridWid, gridHei);
+				}
+
+			case DecalLayer:
+				for(e in decals) {
 				}
 		}
 

@@ -7,6 +7,7 @@ class Tileset {
 	public var tWid : Int;
 	public var tHei : Int;
 	var tiles : Map<Int,h2d.Tile> = new Map();
+	var perLine : Int;
 
 	public function new(t:h2d.Tile, json:Dynamic) {
 		this.tile = t;
@@ -16,7 +17,7 @@ class Tileset {
 		tHei = json.tileHeight;
 
 		// Extract all tiles
-		var perLine = M.ceil(tile.width/tWid);
+		perLine = M.ceil(tile.width/tWid);
 		var tx = 0;
 		var ty = 0;
 		for( ty in 0...M.ceil(tile.height/tHei) )
@@ -29,5 +30,17 @@ class Tileset {
 
 	public inline function getTile(id:Int) : h2d.Tile {
 		return tiles.get(id);
+	}
+
+	public inline function getTileX(id:Int) {
+		return ( id - Std.int(id/perLine)*perLine ) * tWid;
+	}
+
+	public inline function getTileY(id:Int) {
+		return Std.int(id/perLine)*tHei;
+	}
+
+	public inline function extractTileIn(id:Int, source:h2d.Tile) {
+		return source.sub( getTileX(id), getTileY(id), tWid, tHei );
 	}
 }

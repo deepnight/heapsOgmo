@@ -1,6 +1,7 @@
 package ogmo;
 
 @:allow(ogmo.Entity)
+@:allow(ogmo.Decal)
 @:allow(ogmo.Layer)
 class Project {
 	var json : Dynamic;
@@ -9,8 +10,9 @@ class Project {
 	public var tilesets : Map<String, Tileset> = new Map();
 	public var levels : Array<Level> = [];
 
-	var res : hxd.res.Loader;
-	var project : hxd.res.Resource;
+	public var res : hxd.res.Loader;
+	var projectResource : hxd.res.Resource;
+	public var dir(get,never) : String; inline function get_dir() return projectResource.entry.directory;
 
 	public function new(project:hxd.res.Resource, useEmbededImageData:Bool) {
 		fullPath = project.entry.path;
@@ -18,7 +20,7 @@ class Project {
 		json = haxe.Json.parse(raw);
 
 		res = hxd.res.Loader.currentInstance;
-		this.project = project;
+		this.projectResource = project;
 
 		// Init tilesets
 		if( json.tilesets!=null )
@@ -55,7 +57,6 @@ class Project {
 					}
 				}
 				else {
-					var res = hxd.res.Loader.currentInstance;
 					var path = project.entry.directory+"/"+StringTools.replace(jsonTileset.path,"\\","/");
 					var img = res.load(path);
 					var t = new Tileset(img.toTile(), jsonTileset);
@@ -70,8 +71,16 @@ class Project {
 		}
 	}
 
+
+	public function loadFile(relativeFilePath:String) : hxd.res.Any {
+		var path = dn.FilePath.fromFile(dir+"/"+relativeFilePath);
+		return
+			try res.load(path.full)
+			catch(e:Dynamic) throw "Couldn't load "+path.full;
+	}
+
 	function initLevelInDir(path:String) {
-		var dir = res.load(project.entry.directory + (path=="." ? "" : "/"+path));
+		var dir = res.load(projectResource.entry.directory + (path=="." ? "" : "/"+path));
 		for(e in dir)
 			if( e.name.indexOf(".json")>=0 ) {
 				var raw = e.toText();
