@@ -70,7 +70,7 @@ class Level {
 	public inline function getColor(v:String, ?def=0x0) {
 		if( !has(v) )
 			return def;
-		var out = dn.Color.hexToInt( get(v).substr(0,7) );
+		var out = dn.legacy.Color.hexToInt( get(v).substr(0,7) );
 		return has(v) && out!=null ? out : def;
 	}
 

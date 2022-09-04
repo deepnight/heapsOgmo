@@ -20,7 +20,7 @@ class Entity {
 	var projectSettingsJson : Dynamic;
 	public var pxWid : Int;
 	public var pxHei : Int;
-	public var color(get,never) : Int; inline function get_color() return dn.Color.hexToInt(projectSettingsJson.color.substr(0,7));
+	public var color(get,never) : Int; inline function get_color() return dn.legacy.Color.hexToInt(projectSettingsJson.color.substr(0,7));
 	public var nodes : Array<EntityNode> = new Array();
 
 	var gridWidOverride : Null<Int>;
@@ -99,7 +99,7 @@ class Entity {
 	public inline function getColor(v:String, ?def=0x0) {
 		if( !has(v) )
 			return def;
-		var out = dn.Color.hexToInt( get(v).substr(0,7) );
+		var out = dn.legacy.Color.hexToInt( get(v).substr(0,7) );
 		return has(v) && out!=null ? out : def;
 	}
 

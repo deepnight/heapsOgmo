@@ -126,7 +126,7 @@ class Layer {
 			if( l.definition=="grid" && l.name==name ) {
 				for(k in Reflect.fields(l.legend)) {
 					var c : String = Reflect.field(l.legend,k);
-					intGridColors.set( Std.parseInt(k), dn.Color.hexToInt(c.substr(0,7)) );
+					intGridColors.set( Std.parseInt(k), dn.legacy.Color.hexToInt(c.substr(0,7)) );
 				}
 			}
 	}
